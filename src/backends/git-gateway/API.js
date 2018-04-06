@@ -5,23 +5,21 @@ export default class API extends GithubAPI {
   constructor(config) {
     super(config);
     this.api_root = config.api_root;
-    this.tokenPromise = config.tokenPromise;
+    this.token = config.token;
     this.commitAuthor = config.commitAuthor;
     this.repoURL = "";
   }
 
 
   getRequestHeaders(headers = {}) {
-    return this.tokenPromise()
-    .then((jwtToken) => {
-      const baseHeader = {
-        "Authorization": `Bearer ${ jwtToken }`,
-        "Content-Type": "application/json",
-        ...headers,
-      };
-
-      return baseHeader;
-    });
+    const baseHeader = {
+      "Content-Type": "application/json",
+      ...headers,
+    };
+    if (this.token) {
+      baseHeader.Authorization = `Bearer ${ this.token }`;
+    }
+    return baseHeader;
   }
 
 
