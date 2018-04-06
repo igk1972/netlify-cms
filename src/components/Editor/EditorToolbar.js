@@ -50,7 +50,7 @@ export default class EditorToolbar extends React.Component {
   };
 
   renderSimplePublishControls = () => {
-    const { onPersist, onPersistAndNew, isPersisting, hasChanged, isNewEntry } = this.props;
+    const { collection, onPersist, onPersistAndNew, isPersisting, hasChanged, isNewEntry } = this.props;
     if (!isNewEntry && !hasChanged) {
       return <div className="nc-entryEditor-toolbar-statusPublished">Saved</div>;
     }
@@ -64,7 +64,11 @@ export default class EditorToolbar extends React.Component {
           label={isPersisting ? 'Saving...' : 'Save'}
         >
           <DropdownItem label="Save now" icon="arrow" iconDirection="right" onClick={onPersist}/>
-          <DropdownItem label="Save and create new" icon="add" onClick={onPersistAndNew}/>
+          {
+            collection.get('create')
+              ? <DropdownItem label="Save and create new" icon="add" onClick={onPersistAndNew}/>
+              : null
+          }
         </Dropdown>
       </div>
     );
@@ -106,6 +110,7 @@ export default class EditorToolbar extends React.Component {
 
   renderWorkflowPublishControls = () => {
     const {
+      collection,
       onPersist,
       onPersistAndNew,
       isUpdatingStatus,
@@ -151,14 +156,18 @@ export default class EditorToolbar extends React.Component {
           dropdownWidth="150px"
           label={isPublishing ? 'Publishing...' : 'Publish'}
         >
-          <DropdownItem label="Publish now" icon="arrow" iconDirection="right" onClick={onPublish}/>
-          <DropdownItem label="Publish and create new" icon="add" onClick={onPublishAndNew}/>
+          <DropdownItem label="Save now" icon="arrow" iconDirection="right" onClick={onPublish}/>
+          {
+            collection.get('create')
+              ? <DropdownItem label="Save and create new" icon="add" onClick={onPublishAndNew}/>
+              : null
+          }
         </Dropdown>
       ];
     }
 
     if (!isNewEntry) {
-      return <div className="nc-entryEditor-toolbar-statusPublished">Published</div>;
+      return <div className="nc-entryEditor-toolbar-statusPublished">Saved</div>;
     }
   };
 

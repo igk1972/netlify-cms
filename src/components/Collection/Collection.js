@@ -36,7 +36,7 @@ class Collection extends React.Component {
 
   render() {
     const { collection, collections, collectionName, isSearchResults, searchTerm } = this.props;
-    const newEntryUrl = collection.get('create') && getNewEntryUrl(collectionName);
+    const newEntryUrl = collection.get('create') ? getNewEntryUrl(collectionName) : '';
     return (
       <div className="nc-collectionPage-container">
         <Sidebar collections={collections} searchTerm={searchTerm}/>
@@ -46,6 +46,7 @@ class Collection extends React.Component {
               ? null
               : <CollectionTop
                   collectionLabel={collection.get('label')}
+                  collectionLabelSingular={collection.get('label_singular')}
                   collectionDescription={collection.get('description')}
                   newEntryUrl={newEntryUrl}
                   viewStyle={this.state.viewStyle}

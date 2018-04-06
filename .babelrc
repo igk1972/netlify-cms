@@ -1,10 +1,9 @@
 {
   "presets": [
+    "react",
     ["env", {
       "modules": false
-    }],
-    "stage-1",
-    "react"
+    }]
   ],
   "plugins": [
     "lodash",
@@ -16,19 +15,10 @@
       "useESModules": true
     }],
     ["module-resolver", {
-      /**
-       * Use aliases to avoid relative path import hell.
-       */
       "root": [
-        /**
-         * Components
-         */
         "./src/components"
       ],
       "alias": {
-        /**
-         * Top level src directories
-         */
         "Actions": "./src/actions/",
         "Backends": "./src/backends/",
         "Constants": "./src/constants/",
@@ -40,7 +30,10 @@
         "Routing": "./src/routing/",
         "ValueObjects": "./src/valueObjects/",
       }
-    }]
+    }],
+    "transform-export-extensions",
+    "transform-class-properties",
+    "transform-object-rest-spread"
   ],
   "env": {
     "test": {
