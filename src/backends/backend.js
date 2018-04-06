@@ -14,8 +14,8 @@ import { sanitizeSlug } from "Lib/urlHelper";
 import TestRepoBackend from "./test-repo/implementation";
 import GitHubBackend from "./github/implementation";
 import GitGatewayBackend from "./git-gateway/implementation";
-
 import FileSystemBackend from "./file-system/implementation";
+import { toSlug } from 'Lib/slug';
 
 class LocalStorageAuthStore {
   storageKey = "netlify-cms-user";
@@ -60,10 +60,12 @@ const slugFormatter = (template = "{{slug}}", entryData) => {
         return (`0${ date.getMonth() + 1 }`).slice(-2);
       case "day":
         return (`0${ date.getDate() }`).slice(-2);
+      case "timestamp":
+        return date.getTime();
       case "slug":
-        return getIdentifier(entryData).trim();
+        return toSlug(getIdentifier(entryData).trim());
       default:
-        return entryData.get(field, "").trim();
+        return toSlug(entryData.get(field, "").trim());
     }
   })
   // Convert slug to lower-case
