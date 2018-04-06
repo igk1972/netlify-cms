@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { resolvePath } from 'Lib/pathHelper';
+import { resolvePath, basename } from 'Lib/pathHelper';
 import { ADD_ASSET, REMOVE_ASSET } from 'Actions/media';
 import AssetProxy from 'ValueObjects/AssetProxy';
 
@@ -26,6 +26,11 @@ export const getAsset = (publicFolder, state, path) => {
   if (proxy) {
     // There is already an AssetProxy in memmory for this path. Use it.
     return proxy;
+  }
+
+  if (path.indexOf('/') > -1) {
+    publicFolder = publicFolder.replace(/\/*$/g, path.substr(0, path.lastIndexOf('/')));
+    path = basename(path);
   }
 
   // Create a new AssetProxy (for consistency) and return it.

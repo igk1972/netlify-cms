@@ -39,7 +39,7 @@ export function removeInsertedMedia(controlID) {
 }
 
 export function loadMedia(opts = {}) {
-  const { delay = 0, query = '', page = 1, privateUpload } = opts;
+  const { delay = 0, query = '', page = 1, privateUpload, mediaFolder, publicFolder } = opts;
   return async (dispatch, getState) => {
     const state = getState();
     const backend = currentBackend(state.config);
@@ -65,7 +65,7 @@ export function loadMedia(opts = {}) {
     dispatch(mediaLoading(page));
     return new Promise(resolve => {
       setTimeout(() => resolve(
-        backend.getMedia()
+        backend.getMedia({ mediaFolder, publicFolder })
           .then(files => dispatch(mediaLoaded(files)))
           .catch((error) => dispatch(error.status === 404 ? mediaLoaded() : mediaLoadFailed()))
       ));

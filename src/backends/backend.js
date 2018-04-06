@@ -160,8 +160,8 @@ class Backend {
     );
   }
 
-  getMedia() {
-    return this.implementation.getMedia();
+  getMedia(opts = {}) {
+    return this.implementation.getMedia(opts);
   }
 
   entryWithFormat(collectionOrEntity) {

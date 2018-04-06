@@ -62,6 +62,8 @@ export default function withMediaControl(forImage) {
         controlID: this.controlID,
         forImage,
         privateUpload: field.get('private'),
+        mediaFolder: field.get('media_folder'),
+        publicFolder: field.get('public_folder'),
       });
     };
 
@@ -76,7 +78,7 @@ export default function withMediaControl(forImage) {
     };
 
     render() {
-      const { value, getAsset, onRemoveAsset, classNameWrapper } = this.props;
+      const { value, getAsset, onRemoveAsset, classNameWrapper, field } = this.props;
       const fileName = this.renderFileName();
       const subject = forImage ? 'image' : 'file';
       const article = forImage ? 'an' : 'a';

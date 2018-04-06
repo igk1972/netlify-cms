@@ -138,11 +138,13 @@ export default class fs {
     }));
   }
 
-  getMedia() {
-    return this.api.listFiles(this.config.get('media_folder'))
+  getMedia(opts = {}) {
+    var { mediaFolder, publicFolder } = opts;
+    return this.api.listFiles(this.config.get('media_folder') + '/' + mediaFolder)
       .then(files => files.filter(file => file.type === 'file'))
       .then(files => files.map(({ sha, name, size, stats, path }) => {
-        return { id: sha, name, size: stats.size, url: `${ this.config.get('public_folder') }/${ name }`, path };
+        const folder = (this.config.get('public_folder') || this.config.get('media_folder')) + '/' + publicFolder;
+        return { id: sha, name, size: stats.size, url: `${ folder }/${ name }`, path };
       }));
   }
 

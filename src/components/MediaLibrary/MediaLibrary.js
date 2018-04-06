@@ -48,10 +48,11 @@ class MediaLibrary extends React.Component {
     const isOpening = !this.props.isVisible && nextProps.isVisible;
     if (isOpening) {
       this.setState({ selectedFile: {}, query: '' });
-    }
-
-    if (isOpening && (this.props.privateUpload !== nextProps.privateUpload)) {
-      this.props.loadMedia({ privateUpload: nextProps.privateUpload });
+      if (this.props.privateUpload !== nextProps.privateUpload) {
+        this.props.loadMedia({ privateUpload: nextProps.privateUpload });
+      } else {
+        this.props.loadMedia({ mediaFolder: nextProps.mediaFolder, publicFolder: nextProps.publicFolder });
+      }
     }
   }
 
@@ -340,7 +341,8 @@ class MediaLibrary extends React.Component {
 const mapStateToProps = state => {
   const { config, mediaLibrary } = state;
   const configProps = {
-    publicFolder: config.get('public_folder'),
+    mediaFolder: mediaLibrary.get('mediaFolder') || '', // config.get('media_folder'),
+    publicFolder: mediaLibrary.get('publicFolder') || mediaLibrary.get('mediaFolder') || '', // config.get('public_folder'),
   };
   const mediaLibraryProps = {
     isVisible: mediaLibrary.get('isVisible'),

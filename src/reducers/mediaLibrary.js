@@ -21,7 +21,7 @@ const mediaLibrary = (state = Map({ isVisible: false, controlMedia: Map() }), ac
   const privateUploadChanged = state.get('privateUpload') !== get(action, ['payload', 'privateUpload']);
   switch (action.type) {
     case MEDIA_LIBRARY_OPEN: {
-      const { controlID, forImage, privateUpload } = action.payload || {};
+      const { controlID, forImage, privateUpload, mediaFolder, publicFolder } = action.payload || {};
       if (privateUploadChanged) {
         return Map({
           isVisible: true,
@@ -38,6 +38,8 @@ const mediaLibrary = (state = Map({ isVisible: false, controlMedia: Map() }), ac
         map.set('controlID', controlID);
         map.set('canInsert', !!controlID);
         map.set('privateUpload', privateUpload);
+        map.set('mediaFolder', mediaFolder);
+        map.set('publicFolder', publicFolder);
       });
     }
     case MEDIA_LIBRARY_CLOSE:
