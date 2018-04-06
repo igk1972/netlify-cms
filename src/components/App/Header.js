@@ -50,13 +50,13 @@ export default class Header extends React.Component {
               </NavLink>
               {
                 hasWorkflow
-                  ? <NavLink to="/workflow" className="nc-appHeader-button" activeClassName="nc-appHeader-button-active">
+                  ? <NavLink to="/workflow" className="nc-appHeader-button nc-appHeader-workflow" activeClassName="nc-appHeader-button-active">
                       <Icon type="workflow"/>
                       Workflow
                     </NavLink>
                   : null
               }
-              <button onClick={openMediaLibrary} className="nc-appHeader-button">
+              <button onClick={openMediaLibrary} className="nc-appHeader-button nc-appHeader-mediaOpen">
                 <Icon type="media-alt"/>
                 Media
               </button>
