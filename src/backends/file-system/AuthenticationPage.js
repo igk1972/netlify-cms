@@ -70,7 +70,10 @@ export default class AuthenticationPage extends React.Component {
 
     return (
       <section className="nc-filesystemAuthenticationPage-root">
-        <Icon className="nc-filesystemAuthenticationPage-logo" size="500px" type="netlify-cms"/>
+      {AuthenticationPage.logotype == undefined && <Icon className="nc-filesystemAuthenticationPage-logo" size="500px" type="netlify-cms"/>}
+      {AuthenticationPage.logotype != false && <span className="nc-icon nc-filesystemAuthenticationPage-logo">
+        <span><img src={AuthenticationPage.logotype} alt=""/></span>
+      </span>}
         <form className="nc-filesystemAuthenticationPage-form" onSubmit={this.handleLogin}>
           {!error && <p>
             <span className="nc-filesystemAuthenticationPage-errorMsg">{error}</span>

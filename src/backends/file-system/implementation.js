@@ -42,6 +42,7 @@ export default class fs {
     this.authClient = window.netlifyIdentity ? window.netlifyIdentity.gotrue : new GoTrue({APIUrl});
 
     AuthenticationPage.authClient = this.authClient;
+    AuthenticationPage.logotype = config.get('logotype');
   }
 
   authComponent() {
